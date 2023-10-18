@@ -26,8 +26,33 @@ def clear_screen():
 
 # Function for listing all current tasks
 def list_tasks():
-    print("")
+    print("Tasks:")
+    tasks_len = len(tasks)
+    for task, i in tasks, len(tasks):
+        print(i + ". " + task)
 
 # Function for adding tasks
 def add_task(task):
     tasks.append(task)
+
+# Function to remove task
+def remove_task():
+    print("TODO: Remove Task")
+
+# Function to save tasks to a File
+def save_tasks():
+    print("TODO: Save Tasks")   
+
+# Function to load tasks from file
+def load_tasks():
+    print("TODO: Load Tasks")
+
+# Main Loop
+while (True):
+    clear_screen()
+    print_main_menu()
+    menu_input = int(input("Option: ", end=""))
+    match menu_input:
+        case 6:
+            print("Bye")
+            exit(0)
