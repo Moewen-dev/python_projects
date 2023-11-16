@@ -28,8 +28,11 @@ def clear_screen():
 def list_tasks():
     print("Tasks:")
     tasks_len = len(tasks)
-    for task, i in tasks, len(tasks):
-        print(i + ". " + task)
+    if tasks_len == 1:
+        print("1. "+ tasks[0])
+    else:
+        for task, i in tasks, len(tasks):
+            print(i + ". " + task)
 
 # Function for adding tasks
 def add_task(task):
