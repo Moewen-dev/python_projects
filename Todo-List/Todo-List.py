@@ -46,8 +46,7 @@ def add_task(task):
 
 # Function to remove task
 def remove_task(task_nr):
-    print("TODO: Remove Task")
-    tasks.pop(task_nr)
+    tasks.pop(task_nr - 1)
 
 # Function to save tasks to a File
 def save_tasks():
@@ -82,7 +81,20 @@ while (True):
                 continue
             add_task(new_task)
             input()
-            continue           
+            continue
+        case 3:
+            print("Enter the task number of the task that you want to delete.")
+            print("Number: ", end="")
+            try:
+                dtask = int(input())
+                remove_task(dtask)
+                print("Deleted Task: " + str(dtask))
+                input()
+                continue
+            except:
+                print("Invalid Input")
+                input()
+                continue
         case 6:
             print("Bye")
             exit(0)
