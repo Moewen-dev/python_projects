@@ -4,6 +4,7 @@
 
 # imports
 import os
+import pickle
 
 # Initialize an empty list of tasks
 tasks = []
@@ -15,7 +16,7 @@ def print_main_menu():
 | 1. List all Tasks             |
 | 2. Add Task                   |
 | 3. Remove Task                |
-| 4. Safe Tasks to File         |
+| 4. Save Tasks to File         |
 | 5. Load Tasks from File       |
 | 6. Exit                       |
 ---------------------------------""")
@@ -48,13 +49,17 @@ def add_task(task):
 def remove_task(task_nr):
     tasks.pop(task_nr - 1)
 
-# Function to save tasks to a File
-def save_tasks():
-    print("TODO: Save Tasks")   
+# Save tasks to a File
+def save_tasks(task_list):
+    with open('taskfile', 'wb') as fp:
+        pickle.dump(task_list, fp)
+    print("Saved tasks to taskfile")    
 
 # Function to load tasks from file
 def load_tasks():
-    print("TODO: Load Tasks")
+    with open('taskfile', 'rb') as fp:
+        n_list = pickle.load(fp)
+        return n_list
 
 # Main Loop
 while (True):
@@ -93,6 +98,25 @@ while (True):
                 continue
             except:
                 print("Invalid Input")
+                input()
+                continue
+        case 4:
+            try:
+                save_tasks(tasks)
+                input()
+                continue
+            except:
+                print("Something went wrong")
+                input()
+                continue
+        case 5:
+            try:
+                tasks = load_tasks()
+                print("Loaded Tasks from file")
+                input()
+                continue
+            except:
+                print("Something went wrong")
                 input()
                 continue
         case 6:
