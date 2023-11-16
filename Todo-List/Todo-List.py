@@ -51,8 +51,33 @@ def load_tasks():
 while (True):
     clear_screen()
     print_main_menu()
-    menu_input = int(input("Option: ", end=""))
+    print("Option: ", end="")
+    try:
+        menu_input = int(input())
+    except:
+        print("Please enter a valid input")
+        input()
+        continue
     match menu_input:
+        case 1:
+            try:
+                list_tasks()
+                input()
+                continue
+            except:
+                print("No tasks loaded")
+                input()
+                continue
+        case 2:
+            print("Enter new task:", end="")
+            new_task = input()
+            if new_task == '':
+                print("Invalid Input!")
+                input()
+                continue
+            add_task(new_task)
+            input()
+            continue           
         case 6:
             print("Bye")
             exit(0)
