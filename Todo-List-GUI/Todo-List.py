@@ -1,124 +1,25 @@
-# Simple Todo List
+# Simple Todo List with GUI
 # Made by Moewen-dev
 # Version 1.0
 
-# imports
-import os
+# imports 
 import pickle
+import PySimpleGUI as sg
 
-# Initialize an empty list of tasks
-tasks = []
+sg.theme('DarkAmber')
 
-# Main Menu
-def print_main_menu():
-    print("""
-------------Main Menu------------
-| 1. List all Tasks             |
-| 2. Add Task                   |
-| 3. Remove Task                |
-| 4. Save Tasks to File         |
-| 5. Load Tasks from File       |
-| 6. Exit                       |
----------------------------------""")
+layout = [
+    [sg.Text('Test')],
+    [sg.Input(key='-IN-')],
+    [sg.Button('Read'), sg.Exit()]
+]
 
-# Function to clear the screen
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
+window = sg.Window('Window that stays open', layout)
 
-# Function for listing all current tasks
-def list_tasks():
-    tasks_len = len(tasks)
-    if tasks_len == 0:
-        print("No Tasks Loaded")
-    elif tasks_len == 1:
-        print("Tasks:")
-        print("1. "+ tasks[0])
-    else:
-        i = 0
-        print("Tasks:")
-        while (i < tasks_len):
-            ctask = i + 1
-            print(str(ctask) + ". " + tasks[i])
-            i += 1
+while True:
+    event, values = window.read()
+    print(event, values)
+    if event == sg.WIN_CLOSED or event == 'Exit':
+        break
 
-# Function for adding tasks
-def add_task(task):
-    tasks.append(task)
-
-# Function to remove task
-def remove_task(task_nr):
-    tasks.pop(task_nr - 1)
-
-# Save tasks to a File
-def save_tasks(task_list):
-    with open('taskfile', 'wb') as fp:
-        pickle.dump(task_list, fp)
-    print("Saved tasks to taskfile")    
-
-# Function to load tasks from file
-def load_tasks():
-    with open('taskfile', 'rb') as fp:
-        n_list = pickle.load(fp)
-        return n_list
-
-# Main Loop
-while (True):
-    clear_screen()
-    print_main_menu()
-    print("Option: ", end="")
-    try:
-        menu_input = int(input())
-    except:
-        print("Please enter a valid input")
-        input()
-        continue
-    match menu_input:
-        case 1:
-            list_tasks()
-            input()
-            continue
-        case 2:
-            print("Enter new task:", end="")
-            new_task = input()
-            if new_task == '':
-                print("Invalid Input!")
-                input()
-                continue
-            add_task(new_task)
-            input()
-            continue
-        case 3:
-            print("Enter the task number of the task that you want to delete.")
-            print("Number: ", end="")
-            try:
-                dtask = int(input())
-                remove_task(dtask)
-                print("Deleted Task: " + str(dtask))
-                input()
-                continue
-            except:
-                print("Invalid Input")
-                input()
-                continue
-        case 4:
-            try:
-                save_tasks(tasks)
-                input()
-                continue
-            except:
-                print("Something went wrong")
-                input()
-                continue
-        case 5:
-            try:
-                tasks = load_tasks()
-                print("Loaded Tasks from file")
-                input()
-                continue
-            except:
-                print("Something went wrong")
-                input()
-                continue
-        case 6:
-            print("Bye")
-            exit(0)
+window.close()
