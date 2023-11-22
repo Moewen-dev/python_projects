@@ -15,7 +15,6 @@ MLINE_KEY = '-ML-'+sg.WRITE_ONLY_KEY
 output_key = MLINE_KEY
 
 # Window layout
-print("TODO: Get the layout right")
 layout = [
     [sg.Button('Add Task'), sg.Button('Remove Task')],
     [sg.Multiline(size=(50, 20),
