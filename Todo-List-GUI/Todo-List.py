@@ -17,9 +17,8 @@ output_key = MLINE_KEY
 # Window layout
 print("TODO: Get the layout right")
 layout = [
-    [sg.Text('Todo List by Moewe')],
     [sg.Button('Add Task'), sg.Button('Remove Task')],
-    [sg.Multiline(size=(25, 5),
+    [sg.Multiline(size=(50, 20),
                   auto_size_text=True,
                   auto_refresh=True,
                   no_scrollbar=True,
