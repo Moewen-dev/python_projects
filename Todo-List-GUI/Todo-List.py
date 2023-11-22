@@ -42,8 +42,7 @@ def remove_task(task_id):
         task_id = int(task_id)
     except ValueError:
         sg.popup_error_with_traceback('Invalid Input:\n')
-    finally:
-        tasks.pop(task_id - 1)
+    tasks.pop(task_id - 1)
 
 
 # Save tasks to binary file
