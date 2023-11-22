@@ -32,11 +32,11 @@ def list_tasks():
         print("No Tasks Loaded")
     elif tasks_len == 1:
         print("Tasks:")
-        print("1. "+ tasks[0])
+        print("1. " + tasks[0])
     else:
         i = 0
         print("Tasks:")
-        while (i < tasks_len):
+        while i < tasks_len:
             ctask = i + 1
             print(str(ctask) + ". " + tasks[i])
             i += 1
@@ -62,7 +62,7 @@ def load_tasks():
         return n_list
 
 # Main Loop
-while (True):
+while True:
     clear_screen()
     print_main_menu()
     print("Option: ", end="")
@@ -78,7 +78,7 @@ while (True):
             input()
             continue
         case 2:
-            print("Enter new task:", end="")
+            print("Enter new task: ", end="")
             new_task = input()
             if new_task == '':
                 print("Invalid Input!")
