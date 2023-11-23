@@ -1,6 +1,6 @@
 # Simple CLI Weather App
-# Version 1.0.0
 # Made by Moewen-dev
+# Version 1.0.0
 
 # imports
 import dotenv

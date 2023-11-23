@@ -10,3 +10,5 @@ My Python Learning Projects
 > To get it working create a .env file in the Weather-CLI folder and enter
 > ```API_KEY=(Your API Key)```
 > in it
+## Weather GUI
+> A simple Weather App with GUI
