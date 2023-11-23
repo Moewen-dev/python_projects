@@ -13,7 +13,6 @@ import tzlocal
 
 dotenv.load_dotenv('./.env')
 sg.theme('DarkAmber')
-current_timedate = datetime.now(tz=tzlocal.get_localzone())
 
 cprint = sg.cprint
 MLINE_KEY = '-ML-'+sg.WRITE_ONLY_KEY
@@ -121,7 +120,8 @@ def main():
         if event == sg.WIN_CLOSED or event == 'Exit':
             break
         if event == '-GET_WEATHER-':
-            location = sg.popup_get_text('Please enter you disered location', title='Location Input')
+            current_timedate = datetime.now(tz=tzlocal.get_localzone())
+            location = sg.popup_get_text('Please enter you disiered location', title='Location Input')
             if location == '':
                 continue
             weather_data = json.loads(get_weather(location, units='metric'))
