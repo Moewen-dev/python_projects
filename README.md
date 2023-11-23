@@ -7,12 +7,11 @@ My Python Learning Projects
 ## Weather CLI
 > A simple cli tool that can display your current Weather conditions and save them to a file.
 > Uses the [API-Ninjas](https://rapidapi.com/apininjas/api/weather-by-api-ninjas) Weather Api
-> To get it working create a .env file in the Weather-CLI folder and enter
+> To get it working create a .env file in the Weather-CLI folder and put your Api Key in it
 > ```API_KEY=(Your API Key)```
-> in it
 ## Weather GUI
 > A simple Weather App with GUI
 > Uses the [Tomorrow.io](https://www.tomorrow.io/) Weather Api
-> To get it working create a .env file in the Weather GUI folder for your Api Key\n
-> ```API_KEY=(Your API Key)```\n
+> To get it working create a .env file in the Weather GUI folder for your Api Key
+> ```API_KEY=(Your API Key)```
 > Additionally create a saves folder so that the script can save weather data there
