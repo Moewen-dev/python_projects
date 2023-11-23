@@ -185,7 +185,7 @@ Air Pressure: {air_pressure}hPa'''
 
             if save_yes_no == 'Yes':
                 date = current_timedate.strftime('%Y%m%d_%H%M')
-                with open(f"Weather_{location}_{date}.txt", "w", encoding="utf-8") as weather_file:
+                with open(f"./saves/Weather_{location}_{date}.txt", "w", encoding="utf-8") as weather_file:
                     weather_file.write(output)
                 sg.popup_ok(f'Saved as Weather_{location}_{date}.txt')
 
