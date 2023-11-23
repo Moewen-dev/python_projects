@@ -12,3 +12,7 @@ My Python Learning Projects
 > in it
 ## Weather GUI
 > A simple Weather App with GUI
+> Uses the [Tomorrow.io](https://www.tomorrow.io/) Weather Api
+> To get it working create a .env file in the Weather GUI folder for your Api Key\n
+> ```API_KEY=(Your API Key)```\n
+> Additionally create a saves folder so that the script can save weather data there
