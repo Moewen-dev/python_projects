@@ -1,6 +1,6 @@
 # Weather App with Gui
 # Made by Moewen-dev
-# Version 1.0.0
+# Version 1.0.1
 
 # imports
 import PySimpleGUI as sg
@@ -13,16 +13,6 @@ import tzlocal
 
 dotenv.load_dotenv('./.env')
 sg.theme('DarkAmber')
-
-cprint = sg.cprint
-MLINE_KEY = '-ML-'+sg.WRITE_ONLY_KEY
-output_key = MLINE_KEY
-
-#    [sg.Multiline(size=(50, 20),
-#                  auto_size_text=True,
-#                  auto_refresh=True,
-#                  no_scrollbar=True,
-#                  key=MLINE_KEY)],
 
 col1 = [
     [sg.T('Location')],
@@ -63,8 +53,9 @@ col2 = [
 ]
 
 layout = [
+    [sg.B('Enter Location', k='-GET_LOCATION-')],
     [sg.Column(col1, visible=False, k='-COL1-'), sg.Column(col2, visible=False, k='-COL2-')],
-    [sg.B('Get Weather', k='-GET_WEATHER-'), sg.Exit()]
+    [sg.B('Get Weather', k='-GET_WEATHER-'), sg.B('Save', k='-SAVE-'), sg.Exit()]
 ]
 
 window = sg.Window('Weather App', layout)
@@ -114,16 +105,36 @@ def weathercode(wcode):
 
 # Main
 def main():
+    global current_date, \
+    current_time, \
+    weather, \
+    ctemp, \
+    ctemp_feel, \
+    cloud_cover, \
+    uvindex, \
+    humidity, \
+    rain_prob, \
+    rain_intensity, \
+    visibility, \
+    wind_speed_kph, \
+    wind_direction, \
+    air_pressure, \
+    wind_gusts, \
+    location
+
     while True:
+        current_timedate = datetime.now(tz=tzlocal.get_localzone())
+
         event, value = window.read()
-        #        window[MLINE_KEY].update('')
+
         if event == sg.WIN_CLOSED or event == 'Exit':
             break
-        if event == '-GET_WEATHER-':
-            current_timedate = datetime.now(tz=tzlocal.get_localzone())
+
+        if event == '-GET_LOCATION-':
             location = sg.popup_get_text('Please enter you disiered location', title='Location Input')
-            if location == '':
-                continue
+            continue
+
+        if location != '':
             weather_data = json.loads(get_weather(location, units='metric'))
             weather_values = weather_data['data']['values']
             current_date = current_timedate.strftime('%d.%m.%Y')
@@ -144,27 +155,7 @@ def main():
             wcode = weather_values['weatherCode']
             weather = weathercode(str(wcode))
 
-            window['-COL1-'].update(visible=True)
-            window['-COL2-'].update(visible=True)
-
-            window['-LOCATION-'].update(location)
-            window['-CDATE-'].update(current_date)
-            window['-CTIME-'].update(current_time)
-            window['-WCONDITION-'].update(weather)
-            window['-TNOW-'].update(f'{ctemp}°C')
-            window['-FLIKE-'].update(f'{ctemp_feel}°C')
-            window['-CCOVER-'].update(f'{cloud_cover}%')
-            window['-UVINDEX-'].update(uvindex)
-            window['-HUMIDITY-'].update(f'{humidity}%')
-            window['-RCHANCE-'].update(f'{rain_prob}%')
-            window['-RAMOUNT-'].update(f'{rain_intensity}mm/h')
-            window['-VISIBILITY-'].update(f'{visibility}km')
-            window['-WSPEED-'].update(f'{int(wind_speed_kph)}km/h')
-            window['-WDIRECTION-'].update(f'{wind_direction}°')
-            window['-WGUST-'].update(f'{int(wind_speed_kph)}km/h')
-            window['-AIRPRESSURE-'].update(f'{air_pressure}hPa')
-
-            output = f'''Location: {location}
+        output = f'''Location: {location}
 Current Date: {current_date}
 Current Time: {current_time}
 Weather: {weather}
@@ -181,13 +172,33 @@ Wind Direction: {wind_direction}°
 Wind Gusts: {float(wind_gusts) * 3.6}km/h
 Air Pressure: {air_pressure}hPa'''
 
-            save_yes_no = sg.popup_yes_no('Do you want to save the results?', title='Save?')
+        if event == '-GET_WEATHER-':
+            if location != '':
+                window['-COL1-'].update(visible=True)
+                window['-COL2-'].update(visible=True)
 
-            if save_yes_no == 'Yes':
-                date = current_timedate.strftime('%Y%m%d_%H%M')
-                with open(f"./saves/Weather_{location}_{date}.txt", "w", encoding="utf-8") as weather_file:
-                    weather_file.write(output)
-                sg.popup_ok(f'Saved as Weather_{location}_{date}.txt')
+                window['-LOCATION-'].update(location)
+                window['-CDATE-'].update(current_date)
+                window['-CTIME-'].update(current_time)
+                window['-WCONDITION-'].update(weather)
+                window['-TNOW-'].update(f'{ctemp}°C')
+                window['-FLIKE-'].update(f'{ctemp_feel}°C')
+                window['-CCOVER-'].update(f'{cloud_cover}%')
+                window['-UVINDEX-'].update(uvindex)
+                window['-HUMIDITY-'].update(f'{humidity}%')
+                window['-RCHANCE-'].update(f'{rain_prob}%')
+                window['-RAMOUNT-'].update(f'{rain_intensity}mm/h')
+                window['-VISIBILITY-'].update(f'{visibility}km')
+                window['-WSPEED-'].update(f'{int(wind_speed_kph)}km/h')
+                window['-WDIRECTION-'].update(f'{wind_direction}°')
+                window['-WGUST-'].update(f'{int(wind_speed_kph)}km/h')
+                window['-AIRPRESSURE-'].update(f'{air_pressure}hPa')
+
+        if event == '-SAVE-':
+            date = current_timedate.strftime('%Y%m%d_%H%M')
+            with open(f"./saves/Weather_{location}_{date}.txt", "w", encoding="utf-8") as weather_file:
+                weather_file.write(output)
+            sg.popup_ok(f'Saved as Weather_{location}_{date}.txt')
 
 
 main()
