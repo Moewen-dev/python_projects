@@ -59,7 +59,6 @@ layout = [
 ]
 
 window = sg.Window('Weather App', layout)
-# sg.cprint_set_output_destination(window, output_key)
 
 
 # Weather Api
